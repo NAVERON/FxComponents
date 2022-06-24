@@ -1,13 +1,27 @@
 
+
+
 module fxui {
     
     requires javafx.base;
-    requires javafx.fxml;
     requires javafx.controls;
-    requires javafx.graphics;
+    requires javafx.fxml;
+    requires transitive javafx.graphics;
+    
+    requires javafx.media;
+    requires javafx.web;
+    
+    requires java.desktop;
+    requires org.slf4j;
+    requires org.slf4j.simple;
     
     exports fxui;
+    exports notification;
+    exports notification.animations;
+    exports notification.models;
     
+    opens notification;
 }
+
 
 

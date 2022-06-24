@@ -32,7 +32,8 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
+    // Use JUnit Jupiter for testing. 
+    // 如何配置测试  testImplementation 不能导入 module-info 如何解决 --> 暂时没有完美的解决方法 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -44,9 +45,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.30' 
     implementation 'org.slf4j:slf4j-simple:1.7.30' 
     
-    
 }
-
 
 javafx {
     version = "17.0.2" 
@@ -58,7 +57,6 @@ javafx {
     
 }
 
-
 application {
     mainModule = 'fxui' 
     mainClass = 'fxui.Starter' 
@@ -68,6 +66,7 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
 
 
 
