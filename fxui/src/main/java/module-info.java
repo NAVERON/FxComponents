@@ -19,6 +19,8 @@ module fxui {
     exports notification;
     exports notification.animations;
     exports notification.models;
+    exports controls;
+    exports snips;
     
     opens notification;
 }
