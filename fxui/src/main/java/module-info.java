@@ -7,10 +7,9 @@ module fxui {
     requires javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
-    
+    // requires javafx.swing;
     requires javafx.media;
     requires javafx.web;
-    
     requires java.desktop;
     requires org.slf4j;
     requires org.slf4j.simple;
@@ -20,7 +19,7 @@ module fxui {
     exports notification.animations;
     exports notification.models;
     exports controls;
-    exports snips;
+    exports gists;
     
     opens notification;
 }

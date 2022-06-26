@@ -1,4 +1,4 @@
-package snips;
+package gists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +130,7 @@ public class FrogerApp extends Application {
                 default:
                     break;
             }
+            System.out.println("打印当前数量-->" + cars.size());
         });
 
         primaryStage.show();

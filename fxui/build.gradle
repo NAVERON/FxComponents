@@ -58,8 +58,8 @@ javafx {
 }
 
 application {
-    mainModule = 'fxui' 
-    mainClass = 'fxui.Starter' 
+    mainModule = 'snips' 
+    mainClass = 'snips.DrawingApp' 
 }
 
 tasks.named('test') {
