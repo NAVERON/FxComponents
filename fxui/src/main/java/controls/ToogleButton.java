@@ -40,7 +40,6 @@ public class ToogleButton extends Parent {
     private Color frontColor = Color.DARKGREEN;
     private Color endColor = Color.WHITE;
     private Color strokeColor = Color.BLACK;
-    private Double triggerYCoordinate = 0D;
     
     public ToogleButton() {
         this.initComponent();
@@ -54,6 +53,7 @@ public class ToogleButton extends Parent {
         this.initComponent();
     }
     
+    // 组件长宽 初始状态和动画时长 
     public ToogleButton(Double width, Double height, Boolean initSwitchOnValue, Duration durationOfAnimation) {
         this.width = width;
         this.height = height;
@@ -63,6 +63,7 @@ public class ToogleButton extends Parent {
         this.initComponent();
     }
     
+    // 全属性设置 长宽 前后颜色 边框颜色 初始状态和动画时长 
     public ToogleButton(Double width, Double height, 
             Color backgroundColor, Color triggerColor, Color strokeColor, 
             Boolean initSwitchOnValue, Duration durationOfAnimation) {
@@ -95,14 +96,13 @@ public class ToogleButton extends Parent {
     private Circle buildTrigger() {
         Circle trigger = new Circle(this.height/2);
         Boolean isOn = this.switchedOn.getValue();
-        this.triggerYCoordinate = isOn ? this.width - this.height : 0D;
         
         trigger.setCenterX(this.height/2);
         trigger.setCenterY(this.height/2);
         trigger.setFill(isOn ? this.endColor : this.frontColor);
         trigger.setStroke(this.strokeColor);
         // set trigger initial position 
-        trigger.setTranslateX(this.triggerYCoordinate);
+        trigger.setTranslateX(isOn ? this.width - this.height : 0D);
         
         return trigger;
     }
@@ -132,9 +132,8 @@ public class ToogleButton extends Parent {
         
         this.switchedOn.addListener((obs, oleState, newState) -> {
             boolean isOn = newState.booleanValue();
-            this.triggerYCoordinate = isOn ? this.width - this.height : 0D;
             
-            this.triggerTranslateAnimation.setToX(this.triggerYCoordinate);
+            this.triggerTranslateAnimation.setToX(isOn ? this.width - this.height : 0D);
             // backgroundFillAnimation.setFromValue(isOn ? backgroundColor : triggerColor);
             this.backgroundFillAnimation.setToValue(isOn ? this.frontColor : this.endColor);
 

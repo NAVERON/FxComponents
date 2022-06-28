@@ -23,15 +23,15 @@ public class NotificationTester extends Application {
     public void start(Stage primaryStage) throws Exception {
         tray = new TrayNotification();
 
-        Button bt = new Button("延迟动画");
+        Button bt = new Button("Slide 划出动画");bt.setPrefSize(300, 50);
         bt.setOnAction(e ->{
             creatingANewTrayNotification();
         });
-        Button bt2 = new Button("渐入吉安出动画");
+        Button bt2 = new Button("Fade 渐隐渐出动画");bt2.setPrefSize(300, 50);
         bt2.setOnAction(e ->{
             usingDifferentAnimationsAndNotifications();
         });
-        Button bt3 = new Button("弹出动画");
+        Button bt3 = new Button("Popup 弹出动画");bt3.setPrefSize(300, 50);
         bt3.setOnAction(e ->{
             creatingACustomTrayNotification();
         });
@@ -71,7 +71,7 @@ public class NotificationTester extends Application {
         tray.setMessage(message);
         tray.setNotification(notification);
         tray.setAnimation(Animations.FADE);
-        tray.showAndWait();
+        tray.showAndDismiss(Duration.seconds(1));
     }
 
     public void creatingACustomTrayNotification() {

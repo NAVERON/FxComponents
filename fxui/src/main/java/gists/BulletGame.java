@@ -16,9 +16,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
- * 之前制作的传播避碰的框架九四从这里学习并修改而成
+ * 之前制作的传播避碰的框架九四从这里学习并修改而成 
  * FXGL案例教学源代码 
- * @author wangy
+ * @author eron
  *
  */
 public class BulletGame extends Application {
@@ -173,6 +173,12 @@ public class BulletGame extends Application {
 
         if(Math.random() < 0.02){
             addEnemy(new Enemy(), Math.random() * root.getPrefWidth(), Math.random() * root.getPrefHeight());
+        }
+        
+        try {
+            Thread.sleep(10);  // linux 平台下循环太快 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
