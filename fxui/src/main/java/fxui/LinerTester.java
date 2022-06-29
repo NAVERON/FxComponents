@@ -1,7 +1,5 @@
 package fxui;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +9,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class LinerTester extends Application {
@@ -28,13 +27,16 @@ public class LinerTester extends Application {
         Pane root = new Pane();
         VectorView vector = new VectorView(new Point2D(100, 30), new Point2D(200, 50));
         root.getChildren().add(vector);
+        VectorView vector2 = new VectorView(new Point2D(10, 44), new Point2D(20, 0), 10D, Color.BLUE, 4D, Color.PURPLE);
+        root.getChildren().add(vector2);
         
         root.setOnMouseClicked(e -> {
             double x = e.getX();
             double y = e.getY();
             
-            List<Point2D> status = vector.setVectorTo(new Point2D(x, y));
-            log.info("current points --> {}", status.toString());
+            vector.setVectorTo(new Point2D(x, y));
+            vector2.setVectorTo(new Point2D(x, y));
+            log.info("current points --> \n{}\n{}", vector.getVectorEnd(), vector2.getVectorEnd());
             
         });
         

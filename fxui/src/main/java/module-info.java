@@ -13,7 +13,7 @@ module fxui {
     requires java.desktop;
     requires org.slf4j;
     requires org.slf4j.simple;
-    
+    // requires javafx.swing;
     exports fxui;
     exports notification;
     exports notification.animations;
