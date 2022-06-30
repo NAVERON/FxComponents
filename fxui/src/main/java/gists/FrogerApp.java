@@ -21,7 +21,7 @@ import javafx.util.Duration;
 
 /**
  * 一个小游戏  源代码来源于FXGL教程练习 
- * @author eron 
+ * @author AlmasB  
  *
  */
 public class FrogerApp extends Application {

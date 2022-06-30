@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 /**
  * 使用canvas绘制点动画图形 
- * @author wangy
+ * @author AlmasB 
  *
  */
 public class DrawingApp extends Application {

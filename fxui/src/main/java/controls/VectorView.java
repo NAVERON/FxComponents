@@ -92,6 +92,7 @@ public class VectorView extends Parent {
     // 动画执行方法  结论 : 动画部分应当使用独立对象 否则容易产生对象错乱和引用混乱的情况 
     public void vectorAnimationPlay() {
         // 如果动画没有结束 直接结束进行下一个动画 
+        // 这里可以直接使用一个标志 isAnimation 表示是否正在动画中 
         if(this.vectorAnimationTransition.getStatus() == Animation.Status.RUNNING) {
             log.info("stop current animation and remove bullet object ...");
             this.vectorAnimationTransition.stop();

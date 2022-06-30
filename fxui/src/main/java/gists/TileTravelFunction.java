@@ -123,13 +123,13 @@ public class TileTravelFunction extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                update();
+                update();  // 更新tile状态 
             }
         };
         timer.start();
 
-        algorithm = AlgorithmFactory.breadthFirst();  // 相当于functional 函数式 
-        algorithmThread.scheduleAtFixedRate(this::algorithmUpdate, 0, 1, TimeUnit.MILLISECONDS);
+        algorithm = AlgorithmFactory.randomFirst();  // 相当于functional 函数式 
+        algorithmThread.scheduleAtFixedRate(this::algorithmUpdate, 0, 1, TimeUnit.MILLISECONDS);  // 更新访问tile的单元 
 
         return root;
     }

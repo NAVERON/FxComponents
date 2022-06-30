@@ -24,6 +24,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * 粒子的生成和动画使用 效果展示 
+ * @author AlmasB 
+ *
+ */
 public class ParticlesApp extends Application {
 
     

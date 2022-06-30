@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 /**
  * 之前制作的传播避碰的框架九四从这里学习并修改而成 
  * FXGL案例教学源代码 
- * @author eron
+ * @author AlmasB 
  *
  */
 public class BulletGame extends Application {
