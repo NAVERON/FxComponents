@@ -137,7 +137,7 @@ public class CustomeDialog extends Stage {
         });
         this.st.setAutoReverse(true);
         this.st.setCycleCount(2);
-        this.st.playFrom(Duration.seconds(0.66));
+        this.st.playFrom(Duration.seconds(0.66));  // 从特定的位置开始播放 因为之前的动画使用0.33 × 2 
     }
     
 }

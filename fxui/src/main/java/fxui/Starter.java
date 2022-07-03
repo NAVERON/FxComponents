@@ -1,6 +1,7 @@
 package fxui;
 
 import controls.CustomeDialog;
+import controls.LoadingSymble;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,7 +34,11 @@ public class Starter extends Application {
             dialog.showAnimation();
         });
         
-        root.getChildren().add(bt);
+        LoadingSymble loadingSymble = new LoadingSymble(200D, 110D, () -> {System.out.println("完成");});
+        loadingSymble.setTranslateX(400 - 300);
+        loadingSymble.setTranslateY(300 - 200);
+        
+        root.getChildren().addAll(bt, loadingSymble);
         
         return root;
     }

@@ -11,6 +11,8 @@ import javafx.animation.TranslateTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Parent;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Shadow;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -95,12 +97,14 @@ public class ToogleButton extends Parent {
     // 构造组件的trigger 
     private Circle buildTrigger() {
         Circle trigger = new Circle(this.height/2);
+        DropShadow shadow = new DropShadow(5, Color.BLACK);
         Boolean isOn = this.switchedOn.getValue();
         
         trigger.setCenterX(this.height/2);
         trigger.setCenterY(this.height/2);
         trigger.setFill(isOn ? this.endColor : this.frontColor);
         trigger.setStroke(this.strokeColor);
+        trigger.setEffect(shadow);
         // set trigger initial position 
         trigger.setTranslateX(isOn ? this.width - this.height : 0D);
         
