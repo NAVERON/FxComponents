@@ -8,13 +8,15 @@ import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class LinerTester extends Application {
+public class LinearTester extends Application {
     
-    private static final Logger log = LoggerFactory.getLogger(LinerTester.class);
+    private static final Logger log = LoggerFactory.getLogger(LinearTester.class);
     
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -31,6 +33,9 @@ public class LinerTester extends Application {
         root.getChildren().add(vector2);
         
         root.setOnMouseClicked(e -> {
+            if(e.getButton() != MouseButton.PRIMARY) {
+                return;
+            }
             double x = e.getX();
             double y = e.getY();
             

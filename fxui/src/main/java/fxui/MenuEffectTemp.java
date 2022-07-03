@@ -36,12 +36,12 @@ public class MenuEffectTemp extends Application {
         private Text text;
 
         public Civ6Title(String name) {
-            String spread = "";
+            StringBuilder spread = new StringBuilder();
             for (char c : name.toCharArray()) {
-                spread += c + " ";
+                spread.append(c).append(" ");
             }
 
-            text = new Text(spread);
+            text = new Text(spread.toString());
             text.setFill(Color.WHITE);
             text.setEffect(new DropShadow(30, Color.BLACK));
 

@@ -1,7 +1,9 @@
 package fxui;
 
+import controls.CustomeDialog;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -14,11 +16,26 @@ public class Starter extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(new Pane(), 300, 400);
+        Scene scene = new Scene(this.createContent());
         primaryStage.setScene(scene);
         
         primaryStage.setTitle("fxui");
         primaryStage.show();
+    }
+    
+    private Pane createContent() {
+        Pane root = new Pane();
+        root.setPrefSize(400, 300);
+        
+        Button bt = new Button("open dialog");
+        bt.setOnAction(e -> {
+            CustomeDialog dialog = new CustomeDialog();
+            dialog.showAnimation();
+        });
+        
+        root.getChildren().add(bt);
+        
+        return root;
     }
     
 }
