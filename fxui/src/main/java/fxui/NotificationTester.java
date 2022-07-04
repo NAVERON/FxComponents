@@ -59,6 +59,7 @@ public class NotificationTester extends Application {
         tray.setTitle(title);
         tray.setMessage(message);
         tray.setNotification(notification);
+        tray.setAnimation(Animations.SLIDE);
         tray.showAndWait();
     }
 

@@ -114,6 +114,7 @@ public final class TrayNotification implements Initializable {
 		stage.setLocation(stage.getBottomRight());
 
 		lblClose.setOnMouseClicked(e -> dismiss());
+		stage.getScene().setOnMouseClicked(e -> dismiss());
 	}
 
 	public void setNotification(Notification nType) {
