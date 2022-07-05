@@ -1,6 +1,7 @@
 package fxui;
 
 import controls.CustomeDialog;
+import controls.LoadingBarWithTask;
 import controls.LoadingSymble;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -26,7 +27,7 @@ public class Starter extends Application {
     
     private Pane createContent() {
         Pane root = new Pane();
-        root.setPrefSize(400, 300);
+        root.setPrefSize(800, 600);
         
         Button bt = new Button("open dialog");
         bt.setOnAction(e -> {
@@ -35,10 +36,15 @@ public class Starter extends Application {
         });
         
         LoadingSymble loadingSymble = new LoadingSymble(200D, 110D, () -> {System.out.println("完成");});
-        loadingSymble.setTranslateX(400 - 300);
-        loadingSymble.setTranslateY(300 - 200);
+        loadingSymble.setTranslateX(100);
+        loadingSymble.setTranslateY(100);
         
-        root.getChildren().addAll(bt, loadingSymble);
+        LoadingBarWithTask taskLoading = new LoadingBarWithTask();
+        taskLoading.showAndStart();
+        taskLoading.setTranslateX(200);
+        taskLoading.setTranslateY(200);
+        
+        root.getChildren().addAll(bt, loadingSymble, taskLoading);
         
         return root;
     }
