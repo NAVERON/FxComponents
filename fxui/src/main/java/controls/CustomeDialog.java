@@ -6,12 +6,20 @@ import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -95,6 +103,25 @@ public class CustomeDialog extends Stage {
         });
         this.actionHolder.getChildren().add(ok);
         
+        // set background and opacity 
+        root.setBackground(new Background(
+                        new BackgroundFill(
+                            new Color(0, 0.4, 0.4, 0.5), 
+                            new CornerRadii(20), 
+                            Insets.EMPTY
+                        )
+                    )
+                );
+        root.setBorder(new Border(
+                        new BorderStroke(
+                            Color.BLACK, 
+                            BorderStrokeStyle.SOLID, 
+                            new CornerRadii(20), 
+                            BorderWidths.DEFAULT
+                        )
+                    )
+                );
+        // root.setStyle("-fx-border-color: black; -fx-background-color: rgba(0, 100, 100, 0.5);");
         root.getChildren().addAll(this.layoutHolder);
         Scene scene = new Scene(root, Color.TRANSPARENT);
         this.setScene(scene);
@@ -103,7 +130,7 @@ public class CustomeDialog extends Stage {
     }
     
     // setting scene animation 
-    private void initAnimation(Parent root) {
+    private void initAnimation(Node root) {
         this.scaleVetical.setFromY(0.01);
         this.scaleVetical.setToY(1.0);
         this.scaleVetical.setDuration(Duration.seconds(0.33));

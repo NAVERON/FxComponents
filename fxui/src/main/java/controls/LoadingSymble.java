@@ -6,6 +6,8 @@ import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -60,50 +62,45 @@ public class LoadingSymble extends StackPane {
         bot.setArcWidth(vGap);
         bot.setArcHeight(vGap);
 
-//        top.setTranslateX(15);
-//        mid.setTranslateX(0);
-//        bot.setTranslateX(15);
-
-        top.setTranslateY(0);
-        mid.setTranslateY(2 * vGap);
-        bot.setTranslateY(4 * vGap);
+        top.setTranslateY(-2 * vGap);
+        mid.setTranslateY(0);
+        bot.setTranslateY(2 * vGap);
+        this.getChildren().addAll(top, mid, bot);
 
         Circle bgCircle = new Circle(2.5 * vGap, Color.CHOCOLATE);
         bgCircle.setStroke(Color.DARKGREEN);
         bgCircle.setStrokeWidth(2);
-//        bgCircle.setTranslateX(25);
-        bgCircle.setTranslateY(2 * vGap);
 
         Circle animationCircle = new Circle(2.5 * vGap, Color.LIGHTBLUE);
         animationCircle.setStroke(Color.DARKGREEN);
         animationCircle.setStrokeWidth(1);
-//        animationCircle.setTranslateX(25);
-        animationCircle.setTranslateY(2 * vGap);
         animationCircle.setRadius(2);  // 更改半径 
 
         Circle centerPoint = new Circle(2.5 * vGap, Color.BLACK);
         centerPoint.setStroke(Color.DARKGREEN);
         centerPoint.setStrokeWidth(1);
-//        centerPoint.setTranslateX(25);
-//        centerPoint.setTranslateY(this.height / 2.0);
-        centerPoint.setTranslateY(2 * vGap);
         centerPoint.setRadius(4);  // 半径设置 变成点状态 
 
         KeyFrame frame = new KeyFrame(
             Duration.seconds(1), 
             new KeyValue(animationCircle.radiusProperty(), 2 * vGap)
         );
-
         this.timeline.getKeyFrames().add(frame);
         this.timeline.setCycleCount(10);
         this.timeline.play();
 
-        this.getChildren().addAll(top, mid, bot, bgCircle, animationCircle, centerPoint);
-        this.setAlignment(Pos.CENTER);
+        this.getChildren().addAll(bgCircle, animationCircle, centerPoint);
         
-        this.getChildren().forEach(this::makeMovable);
+        this.setAlignment(Pos.CENTER);  // ** 整体布局 
+        
+//        this.getChildren().forEach(this::makeMovable);
+//        this.setOnMouseEntered(e -> {
+//            this.setBackground(new Background(new BackgroundFill(Color.BISQUE, null, getInsets())));
+//        });
+//        this.setOnMouseExited(e -> {
+//            this.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, null, getInsets())));
+//        });
     }
-    
     
     /**
      * just for play , have fun !!! please remove 
