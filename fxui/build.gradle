@@ -59,7 +59,7 @@ javafx {
 
 application {
     mainModule = 'snips' 
-    mainClass = 'snips.DrawingApp' 
+    mainClass = 'gists.DrawingApp' 
 }
 
 tasks.named('test') {

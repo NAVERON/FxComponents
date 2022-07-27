@@ -12,6 +12,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class LinearTester extends Application {
@@ -26,7 +27,9 @@ public class LinearTester extends Application {
     }
     
     public Parent createContent() {
+        
         Pane root = new Pane();
+        
         VectorView vector = new VectorView(new Point2D(100, 30), new Point2D(200, 50));
         root.getChildren().add(vector);
         VectorView vector2 = new VectorView(new Point2D(10, 44), new Point2D(20, 0), 10D, Color.BLUE, 4D, Color.PURPLE);

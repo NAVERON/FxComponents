@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -82,6 +84,7 @@ public class VectorView extends Parent {
     public void initComponent() {
         this.getChildren().addAll(this.vectorStart, this.vectorEnd);
         this.getChildren().add(this.vectorLine);
+        
     }
     
     public void setVectorTo(Point2D end) {
@@ -129,7 +132,7 @@ public class VectorView extends Parent {
      * @author eron 
      * 
      */
-    private static class VectorPoint extends Circle {
+    private class VectorPoint extends Circle {
         private Point2D center;
         private Double radius = 5D;
         private Color color = Color.BLACK;
@@ -184,7 +187,7 @@ public class VectorView extends Parent {
         }
     }
     
-    private static class VectorLine extends Line {
+    private class VectorLine extends Line {
         
         private VectorPoint start;
         private VectorPoint end;

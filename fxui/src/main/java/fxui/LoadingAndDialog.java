@@ -17,9 +17,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Starter extends Application {
+public class LoadingAndDialog extends Application {
     
-    private static final Logger log = LoggerFactory.getLogger(Starter.class);
+    private static final Logger log = LoggerFactory.getLogger(LoadingAndDialog.class);
 
     public static void main(String[] args) {
         log.info("Starter Running ...");
@@ -47,7 +47,7 @@ public class Starter extends Application {
             dialog.showAnimation();
         });
         
-        LoadingSymble loadingSymble = new LoadingSymble(200D, 110D, () -> {log.info("完成");});
+        LoadingSymble loadingSymble = new LoadingSymble(200D, 100D, () -> {log.info("完成");});
         loadingSymble.setTranslateX(100);
         loadingSymble.setTranslateY(100);
         
@@ -65,7 +65,15 @@ public class Starter extends Application {
 //                }
 //            }
 //        });
-        Function<Void, String> function = nothing -> "Function Apply Result";
+        Function<Void, String> function = nothing -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            return "Function Apply Result";
+        };
         LoadingBarWithTask taskLoading = new LoadingBarWithTask(function);
         // taskLoading.bindTask(() -> {log.info("测试执行任务");});  // 更改绑定的任务 
         taskLoading.setTranslateX(300);

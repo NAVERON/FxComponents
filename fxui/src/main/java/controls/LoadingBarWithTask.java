@@ -180,15 +180,14 @@ public class LoadingBarWithTask extends StackPane {
         public LoadingTask(Callable<String> callable) {
             this.future = new FutureTask<String>(callable);
         }
-        // 将function转换成callable 
+        // 将function转换成callable 这里输入为null 实际可以传入外界参数 
         public LoadingTask(Function<Void, String> function) {
-            Callable<String> callable = new Callable<String>() {
+            this.future = new FutureTask<>(new Callable<String>() {
                 @Override
                 public String call() throws Exception {
                     return function.apply(null);
                 }
-            };
-            this.future = new FutureTask<>(callable);
+            });
         }
 
         @Override

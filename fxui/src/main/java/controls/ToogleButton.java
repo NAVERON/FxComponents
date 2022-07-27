@@ -10,9 +10,11 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Shadow;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -21,9 +23,9 @@ import javafx.util.Duration;
 /**
  * 自定义实现一个toogle button 
  * @author eron 
- *
+ * 修正部分显示错误 : 因为增加了shadow ,导致组件整体的边界变宽 
  */
-public class ToogleButton extends Parent {
+public class ToogleButton extends StackPane {
     
     private static final Logger log = LoggerFactory.getLogger(ToogleButton.class);
     
@@ -43,14 +45,16 @@ public class ToogleButton extends Parent {
     private Color endColor = Color.WHITE;
     private Color strokeColor = Color.BLACK;
     
+    private Double shadowRadius = 10D;  // 固定值 
+    
     public ToogleButton() {
         this.initComponent();
     }
     
     // set width = 2 * height in general 
     public ToogleButton(Double width, Double height) {
-        this.width = width;
-        this.height = height;
+        this.width = width - 2 * this.shadowRadius;
+        this.height = height - 2 * this.shadowRadius;
         
         this.initComponent();
     }
@@ -97,7 +101,7 @@ public class ToogleButton extends Parent {
     // 构造组件的trigger 
     private Circle buildTrigger() {
         Circle trigger = new Circle(this.height/2);
-        DropShadow shadow = new DropShadow(5, Color.BLACK);
+        DropShadow shadow = new DropShadow(this.shadowRadius, Color.BLACK);
         Boolean isOn = this.switchedOn.getValue();
         
         trigger.setCenterX(this.height/2);
@@ -157,6 +161,7 @@ public class ToogleButton extends Parent {
         this.getChildren().addAll(background, trigger);
         this.buildAnimation(background, trigger);
         
+        this.setAlignment(Pos.TOP_LEFT);
     }
     
     public BooleanProperty switchedOnProperty(){
