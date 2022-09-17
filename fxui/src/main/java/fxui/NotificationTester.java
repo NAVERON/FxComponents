@@ -1,6 +1,7 @@
 package fxui;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -37,11 +38,12 @@ public class NotificationTester extends Application {
         });
         
         VBox vb = new VBox();
+        vb.setSpacing(25);  // childs space  between each other 
+        vb.setPadding(new Insets(50));  // component space with parent 
         vb.getChildren().addAll(bt, bt2, bt3);
         
-        Pane root = new Pane();
-        root.getChildren().add(vb);
-        Scene scene = new Scene(root, 300, 400);
+        Pane root = new Pane(vb);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         
         primaryStage.show();

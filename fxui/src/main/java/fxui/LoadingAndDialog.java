@@ -41,7 +41,7 @@ public class LoadingAndDialog extends Application {
         
         Button bt = new Button("open dialog");
         bt.setOnAction(e -> {
-            CustomeDialog dialog = new CustomeDialog();
+            CustomeDialog dialog = new CustomeDialog();  // 使用自定义dialog 
             
             dialog.initOwner(primaryStage);
             dialog.showAnimation();

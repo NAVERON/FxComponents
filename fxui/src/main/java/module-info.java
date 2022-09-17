@@ -7,12 +7,16 @@ module fxui {
     requires javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
+    
     // requires javafx.swing;
     requires javafx.media;
     requires javafx.web;
     requires java.desktop;
     requires org.slf4j;
     requires org.slf4j.simple;
+    
+    requires com.dlsc.formsfx;
+    
     // requires javafx.swing;
     exports fxui;
     exports notification;
@@ -20,6 +24,7 @@ module fxui {
     exports notification.models;
     exports controls;
     exports gists;
+    exports formsfx;
     
     opens notification;
 }

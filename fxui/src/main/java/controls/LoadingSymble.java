@@ -39,7 +39,7 @@ public class LoadingSymble extends StackPane {
         this.width = width;
         this.height = height;
         
-        this.timeline.setOnFinished(e -> this.action.run());
+        this.timeline.setOnFinished(e -> this.action.run());  // 可以执行加载相关的动作 
         this.initComponent();
     }
     
@@ -100,6 +100,11 @@ public class LoadingSymble extends StackPane {
 //        this.setOnMouseExited(e -> {
 //            this.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, null, getInsets())));
 //        });
+    }
+    
+    // 组件初始化和执行分开 
+    public void startLoad() {
+        // 执行 开始动画  其余方法提供暂停动作 
     }
     
     /**

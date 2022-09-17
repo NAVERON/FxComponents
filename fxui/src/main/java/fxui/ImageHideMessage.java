@@ -2,10 +2,17 @@ package fxui;
 
 import java.util.stream.IntStream;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 /**
@@ -13,9 +20,9 @@ import javafx.util.Pair;
  * @author Almas Baimagambetov (almaslvl@gmail.com) 
  * 工具类，学习如何编码message进入image 
  */
-public class ImageHideMessage {
+public class ImageHideMessage extends Application {
 
-    private static interface Encoder {
+    private interface Encoder {
         Image encode(Image image, String message);
     }
     
@@ -115,6 +122,32 @@ public class ImageHideMessage {
 
             return new String(data);
         }
+    }
+    
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Pane root = new Pane();
+        BasicEncoder encoder = new BasicEncoder();
+        BasicDecoder decoder = new BasicDecoder();
+        
+        HBox container = new HBox();
+        ImageView a = new ImageView(new Image(getClass().getResource("/images/armor.png").toExternalForm()));
+        String infoMsg = "wangyulongAAAAAA";
+        Image x = encoder.encode(a.getImage(), infoMsg);
+        ImageView b = new ImageView(x);
+        String hiddenInfoMsg = decoder.decode(x);
+        System.out.println("解析msg --> " + hiddenInfoMsg);
+        
+        container.getChildren().addAll(a, b, new Text("输出内容 : " + hiddenInfoMsg));
+        root.getChildren().add(container);
+        
+        Scene scene = new Scene(root, 1200, 900);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
     
     
