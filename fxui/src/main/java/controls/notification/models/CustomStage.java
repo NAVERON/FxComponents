@@ -1,4 +1,4 @@
-package notification.models;
+package controls.notification.models;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Rectangle2D;

@@ -1,4 +1,4 @@
-package notification;
+package controls.notification;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -15,13 +15,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import notification.animations.Animation;
-import notification.animations.Animations;
-import notification.models.CustomStage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import controls.notification.animations.Animation;
+import controls.notification.animations.Animations;
+import controls.notification.models.CustomStage;
 
 
 public final class TrayNotification implements Initializable {

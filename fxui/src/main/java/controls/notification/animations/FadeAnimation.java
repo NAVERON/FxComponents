@@ -1,10 +1,10 @@
-package notification.animations;
+package controls.notification.animations;
 
+import controls.notification.models.CustomStage;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import notification.models.CustomStage;
 
 final class FadeAnimation extends AbstractAnimation {
 

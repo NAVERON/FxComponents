@@ -1,9 +1,9 @@
-package notification.animations;
+package controls.notification.animations;
 
+import controls.notification.models.CustomStage;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import notification.models.CustomStage;
 
 /**
  * 动画模板虚类 

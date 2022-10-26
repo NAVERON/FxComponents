@@ -1,4 +1,4 @@
-package notification;
+package controls.notification;
 
 public enum Notifications implements Notification {
 

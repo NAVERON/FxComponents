@@ -1,9 +1,9 @@
-package notification.animations;
+package controls.notification.animations;
 
 
 import java.util.function.Function;
 
-import notification.models.CustomStage;
+import controls.notification.models.CustomStage;
 
 
 

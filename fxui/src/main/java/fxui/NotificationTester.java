@@ -1,5 +1,9 @@
 package fxui;
 
+import controls.notification.Notification;
+import controls.notification.Notifications;
+import controls.notification.TrayNotification;
+import controls.notification.animations.Animations;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -10,10 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import notification.Notification;
-import notification.Notifications;
-import notification.TrayNotification;
-import notification.animations.Animations;
 
 
 public class NotificationTester extends Application {

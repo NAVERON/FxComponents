@@ -40,6 +40,7 @@ dependencies {
     api 'org.apache.commons:commons-math3:3.6.1'
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:30.1.1-jre'
+    implementation 'com.google.code.gson:gson:2.9.1' 
     
     implementation 'org.slf4j:slf4j-api:1.7.30' 
     implementation 'org.slf4j:slf4j-simple:1.7.30' 
@@ -47,6 +48,29 @@ dependencies {
     implementation 'eu.hansolo.fx:charts:17.1.21'  // charts library  
     // https://mvnrepository.com/artifact/com.dlsc.formsfx/formsfx-core
     implementation group: 'com.dlsc.formsfx', name: 'formsfx-core', version: '11.5.0'  // 控件第三方库  
+    
+    // tile FX 组件库 
+    // https://mvnrepository.com/artifact/eu.hansolo/toolbox
+    // runtimeOnly group: 'eu.hansolo', name: 'toolbox', version: '17.0.33'
+    // https://mvnrepository.com/artifact/eu.hansolo/jdktools
+    // runtimeOnly group: 'eu.hansolo', name: 'jdktools', version: '17.0.23'
+    // https://mvnrepository.com/artifact/eu.hansolo/toolboxfx
+    // runtimeOnly group: 'eu.hansolo', name: 'toolboxfx', version: '17.0.31'
+    // https://mvnrepository.com/artifact/eu.hansolo/tilesfx 
+    implementation group: 'eu.hansolo', name: 'tilesfx', version: '17.1.15'
+    
+    // icon font 组件库 
+    // https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-core
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-core', version: '12.3.1'
+    // https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-javafx
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-javafx', version: '12.3.1'
+    // https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-materialdesign-pack
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-materialdesign-pack', version: '12.3.1'
+    // https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-fontawesome-pack
+    implementation group: 'org.kordamp.ikonli', name: 'ikonli-fontawesome-pack', version: '12.3.1'
+    
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.4.30' 
+    compile 'com.github.almasb:fxgl:17' 
     
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'

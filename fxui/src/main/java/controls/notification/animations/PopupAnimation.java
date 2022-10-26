@@ -1,8 +1,8 @@
-package notification.animations;
+package controls.notification.animations;
 
+import controls.notification.models.CustomStage;
 import javafx.animation.*;
 import javafx.util.Duration;
-import notification.models.CustomStage;
 
 final class PopupAnimation extends AbstractAnimation {
 
