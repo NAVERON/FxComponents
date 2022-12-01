@@ -115,7 +115,7 @@ public class MouseActionPointer extends Application {
                 x = cursorPos.getX();
                 y = cursorPos.getY();
             } 
-            else {
+            else if (distance > MIN_ATTRACT_DISTANCE + 20 && distance < MAX_ATTRACT_DISTANCE - 20){
                 var vector = cursorPos.subtract(x, y);
                 var scaledLength = FORCE_CONSTANT * 1 / distance;
                 vector = vector.normalize().multiply(scaledLength);
