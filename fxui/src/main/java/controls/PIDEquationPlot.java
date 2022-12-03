@@ -1,16 +1,13 @@
 package controls;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
+import org.checkerframework.common.returnsreceiver.qual.This;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -19,151 +16,181 @@ import javafx.scene.layout.StackPane;
 /**
  * 调用实现 传入参数绘制函数曲线 
  * @author wangy 
+ * 一个不错的笔记 : https://slash-honeydew-c53.notion.site/PID-Control-21b8234467974e86a04f94209f56eda5 
  *
  */
 public class PIDEquationPlot extends StackPane {
     
     private static final Logger log = LoggerFactory.getLogger(PIDEquationPlot.class);
-    private static final String PLOT_NAME = "PID Controller";
-    
-    // 根据传入的参数 自动生成点 
-    // 更新显示 linear chart 
+    private String PLOT_TITTLE = "PID Controller";
     
     // 设置基本参数 
-    private DoubleProperty kp = new SimpleDoubleProperty(0), 
-            ki = new SimpleDoubleProperty(0), 
-            kd = new SimpleDoubleProperty(0);
-    private double target = 0D;  // 设置目标值 
-    private LimitRange limit = new LimitRange(0, 30);  // 设置控制值的区间 
-    // 根据参数 生成数据队列 
-    private LinkedList<Double> controlledData = new LinkedList<Double>();
-    private LinkedList<Double> controlData = new LinkedList<Double>();
-    // private Deque<Double> datas = new LinkedBlockingDeque<>();
+    private double kp = 0, ki = 0, kd = 0;  // process params 
+    private double target = 0;  // set target
+    private double curError = 0, curProcessVal = 0, curControlVal = 0;
+    private double lastError = 0, integral = 0, derivative = 0;
+    private long time = 0;  // 表达当前的时间 
+    private float dt = 0.1F;  // 时间间隔 
     
+    private PIDController pidController = null;  // 包装内部实现 
+
     private NumberAxis xAxis = new NumberAxis();
     private NumberAxis yAxis = new NumberAxis();
     private LineChart linechart = new LineChart(xAxis, yAxis);
-    private XYChart.Series<Double, Double> chartControlledData = new XYChart.Series<>();  // 被控制量数据 
-    private XYChart.Series<Double, Double> chartTargetData = new XYChart.Series<>();  // 目标控制量数据 
+    private XYChart.Series<Double, Double> chartProcessData = new XYChart.Series<>();  // 被控制量数据 
+    private XYChart.Series<Double, Double> chartErrors = new XYChart.Series<>();  // 目标控制量数据 
     private XYChart.Series<Double, Double> chartControlData = new XYChart.Series<>();  // 控制量 
     
+    // reference data handler 
+    private ObservableList<XYChart.Data<Double, Double>> processData = this.chartProcessData.getData(); // FXCollections.observableList(new LinkedList<>());
+    private ObservableList<XYChart.Data<Double, Double>> controlData = this.chartControlData.getData();// FXCollections.observableList(new LinkedList<>());
+    private ObservableList<XYChart.Data<Double, Double>> errorsData = this.chartErrors.getData();
+    
     public PIDEquationPlot() {
-        // 设置显示的一些属性 
-        this.setPrefSize(800, 600);
-        linechart.setTitle(PLOT_NAME);
-        linechart.setAnimated(false);
-        chartControlData.setName("ControlValue");
-        chartControlledData.setName("ControlledValue");
-        chartTargetData.setName("TargetValue");
+        // initial line chart properties 
+        this.pidController = new PIDController(0.8, 0, 1.5);
         
-        this.linechart.getData().add(chartControlData);
-        this.linechart.getData().add(chartControlledData);
-        this.linechart.getData().add(chartTargetData);
-        this.getChildren().add(linechart);
+        this.init();
+    }
+    public PIDEquationPlot(double kp, double ki, double kd) {
+        this.pidController = new PIDController(kp, ki, kd);
+        
+        this.init();
+    }
+    public void init() {
+        this.setPrefSize(800, 600);
+        this.linechart.setTitle(this.PLOT_TITTLE);
+        this.linechart.setAnimated(false);
+        
+        this.chartControlData.setName("ControlValue");
+        this.chartProcessData.setName("ProcessValue");
+        this.chartErrors.setName("EachErrors");
+        
+        this.linechart.getData().add(this.chartControlData);
+        this.linechart.getData().add(this.chartProcessData);
+        this.linechart.getData().add(this.chartErrors);
+        
+        this.getChildren().add(this.linechart);
         
         this.update();
     }
     
-    public void initPlotter() {
-        // 清空之前的数据 
-        // this.linechart.getData().clear();  // 清空表关联 series 数据
-        this.chartControlData.getData().clear();
-        this.chartControlledData.getData().clear();
-        this.chartTargetData.getData().clear();
-        // 参数设置完成后 初始化绘图界面 
-        int n = controlData.size() > controlledData.size() ? controlledData.size() : controlData.size() ;
-        for(int i = 0; i < n; i++) {
-            this.chartControlData.getData().add(new XYChart.Data(i, controlData.get(i)));
-            this.chartControlledData.getData().add(new XYChart.Data(i, controlledData.get(i)));
-            
-            this.chartTargetData.getData().add(new XYChart.Data(i, this.target));
-        }
-        
-        
-    }
-    
-    // 绑定外部的随动 参数 valueProperty 
-    public void bindPIDParams(DoubleProperty kp, DoubleProperty ki, DoubleProperty kd) {
-        // 绑定内部显示的参数 
+    public void setKpParam(double kp) {
         this.kp = kp;
-        this.ki = ki;
-        this.kd = kd;
-        
-        this.kp.addListener(new ChangeListener<Object>() {
-            @Override
-            public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-                log.info("当前 kp 值为 --> {}", newValue);
-                update();
-            }
-        });
-        this.ki.addListener(new ChangeListener<Object>() {
-            @Override
-            public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-                log.info("当前 ki 值为 --> {}", newValue);
-                update();
-            }
-        });
-        this.kd.addListener(new ChangeListener<Object>() {
-            @Override
-            public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-                log.info("当前 kd 值为 --> {}", newValue);
-                update();
-            }
-        });
+        this.update();
     }
-    
+    public void setKiParam(double ki) {
+        this.ki = ki;
+        this.update();
+    }
+    public void setKdParam(double kd) {
+        this.kd = kd;
+        this.update();
+    }
     public void setTarget(double target) {
         this.target = target;
-    }
-    public void setControlLimit(long min, long max) {
-        this.limit.resetRange(min, max);
+        this.update();
     }
     
-    // 更新数据 带更新target的和不带的 
+    // update plot
     public void update() {
-        // 更新参数后 需要重新计算数据 
-        this.update(this.target);
-    }
-    public void update(double target) {
-        this.target = target;  // 更新target 
-        
-        // 清空之前的保存数据 
+//        Random rd = new Random();
+//        for(int i = 0; i < 50; i++) {
+//            if(this.processData.size() > 50) {
+//                this.processData.remove(0);
+//            }
+//            if(this.controlData.size() > 50) {
+//                this.controlData.remove(0);
+//            }
+//            this.processData.add(new XYChart.Data(i, rd.nextDouble()));
+//            this.controlData.add(new XYChart.Data(i, rd.nextDouble()));
+//        }
+        this.processData.clear();
         this.controlData.clear();
-        this.controlledData.clear();
         
-        Random rd = new Random();
-        for(int i = 0; i < 30; i++) {
-            this.controlData.add(rd.nextDouble());
-            this.controlledData.add(rd.nextDouble());
+        log.info("进入主更新 循环");
+        double s = 0, v = 0, acc = 0d;
+        int i = 0;
+        while(i < 1000 && Math.abs(s - this.target) > 0.5) {
+//            if(this.processData.size() > 50) {
+//                this.processData.remove(0);
+//            }
+//            if(this.controlData.size() > 50) {
+//                this.controlData.remove(0);
+//            }
+
+            v += acc * this.dt;
+            s += v * this.dt + 1/2 * acc * this.dt * this.dt;
+            acc = this.pidCalculate(s);
+            
+            log.info("输出状态, processVal = {}, curError = {}, controlVal = {}, speed = {}, acc = {}", 
+                    this.curProcessVal, this.curError, this.curControlVal, v, acc);
+            this.time += this.dt;
+            
+            this.processData.add(new XYChart.Data(i, s));
+            this.controlData.add(new XYChart.Data(i, acc));
+            this.errorsData.add(new XYChart.Data(i, this.curError));
+            i++;
         }
         
-        this.initPlotter();  // 数据更新到显示图 
+        this.clearPIDParams();
+    }
+
+    public double pidCalculate(double feedback) {  // 传入动作变化值 计算下一个测量值 
+        this.curProcessVal = feedback;  // 当前被控制对象 
+        this.curError = this.target - this.curProcessVal;
+        
+        // 更新 积分 差分 
+        this.integral += this.curError;
+        this.derivative = this.curError - this.lastError;
+        
+        //根据公式计算 控制量 
+        this.curControlVal = this.kp * this.curError 
+                            + this.ki * this.integral 
+                            + this.kd * this.derivative;
+        // 更新 last error
+        this.lastError = this.curError;
+        
+        return this.curControlVal;
     }
     
-    public List<Double> getControlledData() {
-        return this.controlledData;
-    }
-    public List<Double> getControlData(){
-        return this.controlData;
+    public void clearPIDParams() {
+        this.curError = 0;
+        this.lastError = 0;
+        this.integral = 0;
+        this.derivative = 0;
+        
+        this.time = 0;
     }
     
-    // 区间表示数据结构 
-    private class LimitRange {
+    private class PIDController {
+        // 内部实现 pid 算法细节 
+        public double kp, ki, kd = 0;
+        public double target = 0;
         
-        private long min = 0, max = 0;
-        public LimitRange(long min, long max) {
-            this.min = min;
-            this.max = max;
+        public PIDController(double kp, double ki, double kd) {
+            this.kp = kp;
+            this.ki = ki;
+            this.kd = kd;
         }
-        public void resetRange(long min, long max) {
-            this.min = min;
-            this.max = max;
+        public void setTarget(double target) {
+            this.target = target;
         }
-        public boolean isValid(double val) {
-            return val >= this.min && val <= this.max ? true : false;
+        public void reset(double kp, double ki, double kd) {
+            this.kp = kp;
+            this.ki = ki;
+            this.kd = kd;
         }
+        
     }
     
 }
+
+
+
+
+
+
+
 
 
