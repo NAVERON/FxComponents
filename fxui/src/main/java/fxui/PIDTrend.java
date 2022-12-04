@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import controls.PIDEquationPlot;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
@@ -41,37 +39,53 @@ public class PIDTrend extends Application {
         BorderPane root = new BorderPane();
         // 绘制PID 图形
         PIDEquationPlot plotter = new PIDEquationPlot();
+        
         // 控制pid参数设置 
-        Slider kpSlider = new Slider(0, 5, 0); 
+        Slider kpSlider = new Slider(0, 3, 0); 
+        Text kpMark = new Text();
         kpSlider.setMajorTickUnit(0.5f); // 标尺刻度 
         kpSlider.setShowTickLabels(true);  // 是否显示刻度 
         kpSlider.setBlockIncrement(0.5f);  // 每次变化的值 
         kpSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             log.info("设置参数 kp --> {}", newValue.doubleValue());
             plotter.setKpParam(newValue.doubleValue());
+            kpMark.setText(newValue.toString());
         });
-        Slider kiSlider = new Slider(0, 5, 0);
+        Slider kiSlider = new Slider(0, 3, 0);
+        Text kiMark = new Text();
         kiSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             log.info("设置参数 ki --> {}", newValue.doubleValue());
             plotter.setKiParam(newValue.doubleValue());
+            kiMark.setText(newValue.toString());
         });
-        Slider kdSlider = new Slider(0, 5, 0);
+        Slider kdSlider = new Slider(0, 3, 0);
+        Text kdMark = new Text();
         kdSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             log.info("设置参数 kd --> {}", newValue.doubleValue());
             plotter.setKdParam(newValue.doubleValue());
+            kdMark.setText(newValue.toString());
         });
         // 设置目标值 
-        TextField target = new TextField();
-        target.setPromptText("Please input <target> value");
-        target.setOnAction(event -> {
-            log.info("设置目标值 --> {}", target.getText());
-            plotter.setTarget(Double.valueOf(target.getText()));
+        TextField targetInput = new TextField();
+        Text targetMark = new Text();
+        targetInput.setPromptText("Please input <target> value");
+        targetInput.setOnAction(event -> {
+            log.info("设置目标值 --> {}", targetInput.getText());
+            String targetVal = targetInput.getText();
+            plotter.setTarget(Double.valueOf(targetVal));
+            targetMark.setText(targetVal);
+            
+            targetInput.clear();
         });
         
-        VBox params = new VBox(50);
+        VBox params = new VBox(20);
         // params.setPadding(Insets.EMPTY);
-        params.setPadding(new Insets(30));
-        params.getChildren().addAll(kpSlider, kiSlider, kdSlider, target);
+        params.setPadding(new Insets(20));
+        params.getChildren().addAll(
+                kpSlider, kpMark, 
+                kiSlider, kiMark, 
+                kdSlider, kdMark, 
+                targetInput, targetMark);
         
         root.setCenter(plotter);
         root.setRight(params);
