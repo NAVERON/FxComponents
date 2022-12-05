@@ -115,7 +115,7 @@ public class MouseActionPointer extends Application {
                 x = cursorPos.getX();
                 y = cursorPos.getY();
             } 
-            else {
+            else if(distance < MAX_ATTRACT_DISTANCE - 20 && distance > MIN_ATTRACT_DISTANCE + 20) {  // 一定的缓冲区 避免来回横跳 
                 var vector = cursorPos.subtract(x, y);
                 var scaledLength = FORCE_CONSTANT * 1 / distance;
                 vector = vector.normalize().multiply(scaledLength);
