@@ -5,7 +5,8 @@
 plugins {
     
     id 'application' 
-    id 'eclipse' 
+    id 'eclipse'
+    id 'idea'
     id 'java' 
     
     id 'org.openjfx.javafxplugin' version '0.0.10' 
@@ -21,13 +22,14 @@ repositories {
 
     mavenCentral() 
     maven {
-        url 'https://maven.aliyun.com/nexus/content/groups/public/' 
-        url "https://nexus.gluonhq.com/nexus/content/repositories/releases/" 
+        url 'https://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    maven {
+        url "https://nexus.gluonhq.com/nexus/content/repositories/releases/"
     }
     
     jcenter() 
-    
-    gradlePluginPortal() 
+    gradlePluginPortal()
     
 }
 
@@ -51,11 +53,16 @@ dependencies {
     
     // tile FX 组件库 
     // https://mvnrepository.com/artifact/eu.hansolo/toolbox
-    // runtimeOnly group: 'eu.hansolo', name: 'toolbox', version: '17.0.33'
+    implementation group: 'eu.hansolo', name: 'toolbox', version: '17.0.33'
     // https://mvnrepository.com/artifact/eu.hansolo/jdktools
-    // runtimeOnly group: 'eu.hansolo', name: 'jdktools', version: '17.0.23'
+    implementation group: 'eu.hansolo', name: 'jdktools', version: '17.0.23'
     // https://mvnrepository.com/artifact/eu.hansolo/toolboxfx
-    // runtimeOnly group: 'eu.hansolo', name: 'toolboxfx', version: '17.0.31'
+    implementation group: 'eu.hansolo', name: 'toolboxfx', version: '17.0.31'
+    // https://mvnrepository.com/artifact/eu.hansolo.fx/heatmap
+    implementation 'eu.hansolo.fx:heatmap:17.0.12'
+    // https://mvnrepository.com/artifact/eu.hansolo.fx/countries
+    implementation 'eu.hansolo.fx:countries:17.0.23'
+
     // https://mvnrepository.com/artifact/eu.hansolo/tilesfx 
     implementation group: 'eu.hansolo', name: 'tilesfx', version: '17.1.15'
     
@@ -83,7 +90,7 @@ javafx {
     modules = [ 
         'javafx.base', 'javafx.controls', 
         'javafx.graphics', 'javafx.fxml', 
-        'javafx.media', 'javafx.web' 
+        'javafx.media', 'javafx.web', 'javafx.swing'
     ]
     
 }
