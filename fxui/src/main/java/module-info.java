@@ -21,7 +21,11 @@ module fxui {
     
     // third party 
     requires com.dlsc.formsfx;
-    
+    requires com.almasb.fxgl.all;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.annotation;
+    requires com.fasterxml.jackson.databind;
+
     requires eu.hansolo.toolbox;
     requires eu.hansolo.toolboxfx;
     requires eu.hansolo.fx.charts;
@@ -31,7 +35,8 @@ module fxui {
     
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
-    
+    requires Java.WebSocket;
+
     // Export class
     exports fxui;
     exports controls;
