@@ -156,7 +156,7 @@ public class PIDEquationPlot extends StackPane {
         this.pidController.clearProcessVariables();
     }
 
-    private class PIDController {
+    private static class PIDController {
         // 内部实现 pid 算法细节
         public double kp = 0, ki = 0, kd = 0;
         public double target = 0;
