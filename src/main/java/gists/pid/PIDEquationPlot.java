@@ -22,6 +22,7 @@ public class PIDEquationPlot extends StackPane {
     // 设置基本参数
     private long time = 0;  // 表达当前的时间
     private float dt = 0.1F;  // 时间间隔
+    private int maxLoop = 500; // 最大求解迭代
 
     private PIDController pidController = new PIDController();  // 包装内部实现
 
@@ -111,7 +112,7 @@ public class PIDEquationPlot extends StackPane {
         // 终止条件 --> 控制量为 0, 被控制量 到target
 
         // 全量控制循环
-//        while( !(this.pidController.isControlActionStop() && this.pidController.isReachTarget() && Math.abs(v) < 0.5) && i < 300 ) {
+//        while( !(this.pidController.isControlActionStop() && this.pidController.isReachTarget() && Math.abs(v) < 0.5) && i < maxLoop ) {
 //            // 根据当前状态 更新距离 速度
 //
 //            s += v + 1.0/2.0 * acc;
@@ -134,7 +135,7 @@ public class PIDEquationPlot extends StackPane {
         // 增量控制循环
         s = 0; v = 0; acc = 0;
         i = 0;
-        while( !(this.pidController.isControlActionStop() && this.pidController.isReachTarget() && Math.abs(v) < 0.5) && i < 300 ) {
+        while( !(this.pidController.isControlActionStop() && this.pidController.isReachTarget() && Math.abs(v) < 0.5) && i < maxLoop ) {
             // 根据当前状态 更新距离 速度
 
             s += v + 1.0/2.0 * acc;

@@ -90,5 +90,4 @@ public class PIDTrend extends Application {
         launch(args);
     }
 
-
 }
